@@ -1,0 +1,29 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/nginx
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Create web root
+  file:
+    path: "{{ nginx_root }}"
+    state: directory
+
+- name: Deploy nginx config
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: Restart nginx
+
+- name: Create index page
+  copy:
+    dest: "{{ nginx_root }}/index.html"
+    content: "Hello from {{ inventory_hostname }}"
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true

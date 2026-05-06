@@ -1,0 +1,14 @@
+---
+- name: Web servers
+  hosts: webservers
+  become: true
+  roles:
+    - role: nginx
+      vars:
+        nginx_port: 8080
+
+- name: DB servers
+  hosts: dbservers
+  become: true
+  roles:
+    - geerlingguy.mysql
