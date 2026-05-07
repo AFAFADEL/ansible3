@@ -5,7 +5,7 @@
   roles:
     - role: nginx
       vars:
-        nginx_port: 8080
+        nginx_port: 8082
 
 - name: DB servers
   hosts: dbservers
