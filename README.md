@@ -1,6 +1,6 @@
 # 🚀 Ansible Lab — Roles & Galaxy (Beginner Friendly)
 
-ذذذذذذّّّ
+
 ----------------
 <img width="1354" height="761" alt="galaxy3" src="https://github.com/user-attachments/assets/04b56309-f55b-4fee-b6ab-b3fb158dea5c" />
 <img width="1360" height="768" alt="galaxy2" src="https://github.com/user-attachments/assets/4f318df8-a899-4de4-b82e-d85d393b7dda" />
