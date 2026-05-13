@@ -84,7 +84,7 @@ site_title: "My Nginx Site"
 ⚙️ Step 6 — Template
 
 📄 roles/nginx/templates/nginx.conf.j2
-
+```
 events {
     worker_connections {{ nginx_worker_connections }};
 }
@@ -97,6 +97,7 @@ http {
         index index.html;
     }
 }
+```
 ⚙️ Step 7 — Tasks
 
 📄 roles/nginx/tasks/main.yml
@@ -153,7 +154,9 @@ ansible-galaxy install -r requirements.yml
 ⚙️ Step 10 — Site Playbook
 
 📄 site.yml
-
+```
+ذذذذ
+ذذذذ
 - name: Web servers setup
   hosts: webservers
   become: true
@@ -187,8 +190,10 @@ ansible-galaxy list
 Nginx installed via custom role ✔
 MySQL installed via Galaxy role ✔
 Both running on same VM ✔
-Fully reusable Ansible roles structure ✔
-
+Fully reusable Ansible roles structure
+```
+ذذذذذذّّّ
+----------------
 <img width="1354" height="761" alt="galaxy3" src="https://github.com/user-attachments/assets/04b56309-f55b-4fee-b6ab-b3fb158dea5c" />
 <img width="1360" height="768" alt="galaxy2" src="https://github.com/user-attachments/assets/4f318df8-a899-4de4-b82e-d85d393b7dda" />
 
