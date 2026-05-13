@@ -164,7 +164,7 @@ ansible-galaxy install -r requirements.yml
     - role: nginx
       vars:
         nginx_port: 8080
-
+```
 - name: DB servers setup
   hosts: dbservers
   become: true
@@ -179,6 +179,7 @@ ansible-galaxy install -r requirements.yml
         priv: "appdb.*:ALL"
   roles:
     - geerlingguy.mysql
+```
 🚀 Step 11 — Run Playbook
 ansible-playbook site.yml
 🧪 Step 12 — Test
@@ -191,7 +192,7 @@ Nginx installed via custom role ✔
 MySQL installed via Galaxy role ✔
 Both running on same VM ✔
 Fully reusable Ansible roles structure
-```
+
 ذذذذذذّّّ
 ----------------
 <img width="1354" height="761" alt="galaxy3" src="https://github.com/user-attachments/assets/04b56309-f55b-4fee-b6ab-b3fb158dea5c" />
