@@ -1,48 +1,46 @@
-• ansible-galaxy list shows both roles
-• ansible-playbook site.yml runs without errors
 # 🚀 Ansible Lab — Roles & Galaxy (Beginner Friendly)
 
 ## 🧠 Goal
+
 In this lab we will:
+
 - Build a reusable Nginx role using `ansible-galaxy`
 - Use a community MySQL role from Galaxy
 - Run both roles using a single playbook (`site.yml`)
-- Apply everything on a local VM (192.168.148.132)
+- Apply everything on a local VM (`192.168.148.132`)
 
 ---
 
 ## 🖥️ Environment
 
-We are using ONE VM:
+We are using **ONE VM**:
+
 - IP: `192.168.148.132`
-- Acts as:
-  - web1 (nginx)
-  - db1 (mysql)
+
+Acts as:
+
+- `web1` → Nginx Server
+- `db1` → MySQL Server
 
 ---
 
 ## 📁 Project Structure
 
-
+```text
 ~/ansible-lab/
 ├── ansible.cfg
 ├── inventory/
-│ └── hosts.yml
+│   └── hosts.yml
 ├── requirements.yml
 ├── site.yml
 └── roles/
-└── nginx/
-├── tasks/
-├── handlers/
-├── templates/
-├── defaults/
-└── meta/
-
----
-
-# ⚙️ Step 1 — Create Project
-
-```bash
+    └── nginx/
+        ├── tasks/
+        ├── handlers/
+        ├── templates/
+        ├── defaults/
+        └── meta/
+⚙️ Step 1 — Create Project
 mkdir -p ~/ansible-lab
 cd ~/ansible-lab
 
@@ -63,16 +61,19 @@ all:
         db1:
           ansible_host: 192.168.148.132
 ⚙️ Step 3 — ansible.cfg
+
+📄 ansible.cfg
+
 [defaults]
 inventory = ./inventory/hosts.yml
 roles_path = ./roles
 host_key_checking = False
 ⚙️ Step 4 — Create Nginx Role
 ansible-galaxy role init roles/nginx
-
-Clean unnecessary folders:
-
-rm -rf roles/nginx/files roles/nginx/vars roles/nginx/tests
+Clean unnecessary folders
+rm -rf roles/nginx/files
+rm -rf roles/nginx/vars
+rm -rf roles/nginx/tests
 ⚙️ Step 5 — Defaults
 
 📄 roles/nginx/defaults/main.yml
@@ -84,7 +85,7 @@ site_title: "My Nginx Site"
 ⚙️ Step 6 — Template
 
 📄 roles/nginx/templates/nginx.conf.j2
-```
+
 events {
     worker_connections {{ nginx_worker_connections }};
 }
@@ -97,7 +98,6 @@ http {
         index index.html;
     }
 }
-```
 ⚙️ Step 7 — Tasks
 
 📄 roles/nginx/tasks/main.yml
@@ -147,51 +147,52 @@ http {
 roles:
   - name: geerlingguy.mysql
     version: "6.3.1"
-
-Install:
-
+Install Galaxy Role
 ansible-galaxy install -r requirements.yml
 ⚙️ Step 10 — Site Playbook
 
 📄 site.yml
-```
-ذذذذ
-ذذذذ
+
 - name: Web servers setup
   hosts: webservers
   become: true
+
   roles:
     - role: nginx
       vars:
         nginx_port: 8080
-```
+
 - name: DB servers setup
   hosts: dbservers
   become: true
+
   vars:
     mysql_root_password: "SecurePass123"
+
     mysql_databases:
       - name: appdb
+
     mysql_users:
       - name: appuser
         host: "%"
         password: "AppPass123"
         priv: "appdb.*:ALL"
+
   roles:
     - geerlingguy.mysql
-```
 🚀 Step 11 — Run Playbook
 ansible-playbook site.yml
 🧪 Step 12 — Test
-Nginx test:
+Nginx Test
 ansible webservers -m uri -a "url=http://localhost:8080 status_code=200"
-Galaxy roles check:
+Galaxy Roles Check
 ansible-galaxy list
 🎯 Final Result
-Nginx installed via custom role ✔
-MySQL installed via Galaxy role ✔
-Both running on same VM ✔
-Fully reusable Ansible roles structure
+
+✅ Nginx installed via custom role
+✅ MySQL installed via Galaxy role
+✅ Both running on same VM
+✅ Fully reusable Ansible roles structure
 
 ذذذذذذّّّ
 ----------------
